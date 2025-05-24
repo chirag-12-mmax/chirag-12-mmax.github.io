@@ -1,18 +1,28 @@
 /* Global Styles */
 :root {
-    --primary-color: #FF6B6B;
+    /* Light Mode Colors */
+    --primary-color: #2563eb;
+    --primary-dark: #1d4ed8;
+    --primary-light: #60a5fa;
     --secondary-color: #4ECDC4;
     --accent-color: #FFE66D;
-    --gradient-1: linear-gradient(120deg, #f093fb 0%, #f5576c 100%);
-    --gradient-2: linear-gradient(120deg, #84fab0 0%, #8fd3f4 100%);
-    --text-color: #2C3E50;
-    --text-light: #7F8C8D;
-    --bg-light: #F7F9FC;
+    --gradient-1: linear-gradient(135deg, var(--primary-color), var(--primary-dark));
+    --gradient-2: linear-gradient(135deg, var(--primary-light), var(--primary-color));
+    --text-color: #1f2937;
+    --text-light: #6b7280;
+    --bg-light: #f3f4f6;
     --white: #ffffff;
     --spacing: 1rem;
-    --border-radius: 16px;
+    --border-radius: 8px;
     --transition: all 0.3s ease;
-    --box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    --border-color: #e5e7eb;
+    
+    /* Dark Mode Colors */
+    --dark-bg: #121212;
+    --dark-card: #1e1e1e;
+    --dark-text: rgba(255, 255, 255, 0.87);
+    --dark-text-secondary: rgba(255, 255, 255, 0.6);
 }
 
 * {
@@ -1019,8 +1029,10 @@ img.loaded {
 /* Dark Mode Support */
 @media (prefers-color-scheme: dark) {
     :root {
-        --bg-light: #1a1a1a;
-        --text-color: #ffffff;
-        --text-light: #cccccc;
+        --text-color: var(--dark-text);
+        --text-light: var(--dark-text-secondary);
+        --bg-light: var(--dark-bg);
+        --border-color: rgba(255, 255, 255, 0.1);
+        --box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2), 0 2px 4px -1px rgba(0, 0, 0, 0.1);
     }
 } 

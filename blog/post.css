@@ -263,6 +263,10 @@ code {
 
 /* Dark Mode */
 @media (prefers-color-scheme: dark) {
+    .post-main {
+        background: var(--dark-bg);
+    }
+
     .post-content,
     .author-info,
     .table-of-contents,
@@ -270,12 +274,66 @@ code {
         background: var(--dark-card);
     }
 
+    .post-header h1,
+    .content-section h2,
+    .content-section h3,
+    .author-info h3,
+    .table-of-contents h3,
+    .related-posts h3 {
+        color: var(--white);
+    }
+
+    .post-subtitle,
+    .post-meta .date,
+    .content-section p,
+    .content-section li,
+    .author-info p {
+        color: rgba(255, 255, 255, 0.8);
+    }
+
     .tag {
-        background: rgba(255,255,255,0.1);
+        background: rgba(255, 255, 255, 0.1);
+        color: var(--white);
     }
 
     pre {
         background: #1a1a1a;
+    }
+
+    code {
+        color: #e6e6e6;
+    }
+
+    .copy-button {
+        background: rgba(255, 255, 255, 0.15);
+        color: var(--white);
+    }
+
+    .copy-button:hover {
+        background: rgba(255, 255, 255, 0.25);
+    }
+
+    .table-of-contents a,
+    .related-posts a {
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    .table-of-contents a:hover,
+    .related-posts a:hover {
+        color: var(--primary-light);
+    }
+
+    .share-button {
+        background: var(--gradient-1);
+        color: var(--white);
+    }
+
+    .share-button:hover {
+        background: var(--primary-light);
+    }
+
+    .post-footer {
+        border-top-color: rgba(255, 255, 255, 0.1);
     }
 }
 

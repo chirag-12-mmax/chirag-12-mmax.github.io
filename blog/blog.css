@@ -243,10 +243,43 @@
 
 /* Dark Mode */
 @media (prefers-color-scheme: dark) {
+    .blog-main {
+        background: var(--dark-bg);
+    }
+
     .blog-card,
     .featured-content,
     .topic-tag {
         background: var(--dark-card);
+    }
+
+    .blog-header h1,
+    .blog-content h3,
+    .featured-text h2 {
+        color: var(--white);
+    }
+
+    .blog-header p,
+    .blog-content p,
+    .featured-text p {
+        color: rgba(255, 255, 255, 0.8);
+    }
+
+    .topic-tag {
+        color: var(--white);
+        background: rgba(255, 255, 255, 0.1);
+    }
+
+    .topic-tag:hover {
+        background: var(--gradient-1);
+    }
+
+    .read-more {
+        color: var(--primary-light);
+    }
+
+    .read-more:hover {
+        color: var(--white);
     }
 
     .subscribe-form input {
@@ -256,6 +289,16 @@
 
     .subscribe-form input::placeholder {
         color: rgba(255, 255, 255, 0.6);
+    }
+
+    .subscribe-form button {
+        background: var(--white);
+        color: var(--primary-color);
+    }
+
+    .subscribe-form button:hover {
+        background: var(--primary-light);
+        color: var(--dark-bg);
     }
 }
 
