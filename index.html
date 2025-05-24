@@ -3,18 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chirag Shiyani - Portfolio</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta name="description" content="Chirag Shiyani - Expert Flutter Developer specializing in Mobile, Web & Desktop App Development">
+    <meta name="keywords" content="Flutter, Mobile Development, Web Development, Desktop Apps, Cross-platform Development">
+    <title>Chirag Shyani - Flutter Developer | Mobile, Web & Desktop App Development Expert</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Vendor CSS Files -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Template CSS Files -->
+    <link rel="stylesheet" href="theme.css">
+    <link rel="stylesheet" href="styles.css">
+    
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 </head>
 <body>
+    <div id="particles-js"></div>
+    
     <nav class="navbar">
         <div class="nav-content">
             <div class="logo">CS</div>
+            <button class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
             <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
+                <li><a href="#home" class="active">Home</a></li>
                 <li><a href="#about">About</a></li>
-                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#portfolio">Projects</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
         </div>
@@ -22,33 +44,125 @@
 
     <section id="home" class="hero">
         <div class="hero-content">
-            <h1>Chirag Shiyani</h1>
-            <p class="tagline">Professional Developer & Freelancer</p>
-            <div class="social-links">
-                <a href="https://www.upwork.com/freelancers/~016ede5e4f82b2634f" target="_blank" class="social-btn">
-                    <i class="fas fa-briefcase"></i> Upwork
-                </a>
-                <a href="https://www.linkedin.com/in/chirag-shiyani-717063245" target="_blank" class="social-btn">
-                    <i class="fab fa-linkedin"></i> LinkedIn
-                </a>
+            <div class="hero-text">
+                <div class="typing-container">
+                    <h1>Hi, I'm <span class="highlight">Chirag Shiyani</span></h1>
+                    <div class="typing-text">
+                        <span>Flutter Developer</span>
+                        <span>UI/UX Enthusiast</span>
+                        <span>Mobile App Expert</span>
+                    </div>
+                </div>
+                <p class="hero-description">Crafting beautiful cross-platform mobile experiences with Flutter</p>
+                <div class="stats-container">
+                    <div class="stat-item">
+                        <span class="stat-number">1.5+</span>
+                        <span class="stat-label">Years Experience</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">10+</span>
+                        <span class="stat-label">Projects Completed</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">5+</span>
+                        <span class="stat-label">Happy Clients</span>
+                    </div>
+                </div>
+                <div class="cta-buttons">
+                    <a href="#portfolio" class="primary-btn">
+                        <i class="fas fa-laptop-code"></i>
+                        View Projects
+                    </a>
+                    <a href="#contact" class="secondary-btn">
+                        <i class="fas fa-paper-plane"></i>
+                        Contact Me
+                    </a>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="profile-card">
+                    <img src="https://via.placeholder.com/400x400.png?text=Your+Profile" alt="Chirag Shiyani" class="profile-image">
+                    <div class="profile-info">
+                        <div class="profile-tag">Available for Work</div>
+                        <div class="tech-badges">
+                            <span><i class="fab fa-flutter"></i> Flutter</span>
+                            <span><i class="fab fa-android"></i> Android</span>
+                            <span><i class="fab fa-apple"></i> iOS</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
 
+    <!-- Add scroll indicator -->
+    <div class="scroll-indicator">
+        <div class="mouse">
+            <div class="wheel"></div>
+        </div>
+        <div class="arrow"></div>
+    </div>
+
     <section id="about" class="about">
         <div class="container">
-            <h2>About Me</h2>
+            <h2 class="section-title">About Me</h2>
             <div class="about-content">
                 <div class="about-text">
-                    <p>I am a passionate developer with expertise in creating innovative solutions. My experience spans across various technologies and frameworks, allowing me to deliver high-quality results for my clients.</p>
+                    <p>As a Flutter developer with over 1.5 years of experience, I specialize in building cross-platform mobile applications. My expertise lies in creating robust, user-friendly apps that deliver exceptional user experiences.</p>
+                    <p>I would like to be professional towards the organization and to work where my skills will be useful, active to accept all challenges and work hard towards achieving goals of the organization with new techniques.</p>
                 </div>
-                <div class="skills">
-                    <h3>Skills</h3>
-                    <div class="skill-tags">
-                        <span class="skill-tag">Web Development</span>
-                        <span class="skill-tag">Mobile Development</span>
-                        <span class="skill-tag">UI/UX Design</span>
-                        <span class="skill-tag">Problem Solving</span>
+                <div class="skills-container">
+                    <div class="skills-category">
+                        <h3>Technical Skills</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Flutter</span>
+                            <span class="skill-tag">Dart</span>
+                            <span class="skill-tag">Firebase</span>
+                            <span class="skill-tag">SQLite</span>
+                            <span class="skill-tag">MySQL</span>
+                            <span class="skill-tag">GraphQL</span>
+                            <span class="skill-tag">REST API</span>
+                            <span class="skill-tag">Git</span>
+                        </div>
+                    </div>
+                    <div class="skills-category">
+                        <h3>Professional Skills</h3>
+                        <div class="skill-tags">
+                            <span class="skill-tag">Leadership</span>
+                            <span class="skill-tag">Team Work</span>
+                            <span class="skill-tag">Problem Solving</span>
+                            <span class="skill-tag">Communication</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="experience">
+        <div class="container">
+            <h2 class="section-title">Experience & Education</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Flutter Developer</h3>
+                        <p class="company">Instance IT Pvt Ltd</p>
+                        <p class="duration">June 2024 - Present</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>Flutter Developer</h3>
+                        <p class="company">WEBITO INFOTECH PVT. LTD.</p>
+                        <p class="duration">June 2022 - June 2024</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h3>BCA - Computer Applications</h3>
+                        <p class="company">Veer Narmad South Gujarat University</p>
+                        <p class="duration">2017 - 2019</p>
+                        <p class="achievement">CGPA: 7.61</p>
                     </div>
                 </div>
             </div>
@@ -57,21 +171,73 @@
 
     <section id="portfolio" class="portfolio">
         <div class="container">
-            <h2>My Portfolio</h2>
+            <h2 class="section-title">Featured Projects</h2>
             <div class="portfolio-grid">
-                <!-- Portfolio items will be added here -->
                 <div class="portfolio-item">
-                    <img src="https://via.placeholder.com/300x200" alt="Project 1">
-                    <div class="portfolio-info">
-                        <h3>Project 1</h3>
-                        <p>Description of the project goes here</p>
+                    <div class="portfolio-content">
+                        <div class="portfolio-image">
+                            <img src="https://via.placeholder.com/800x600.png?text=Real+Estate+CRM" alt="Real Estate CRM">
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Real Estate Industry CRM</h3>
+                            <p>A comprehensive CRM solution for real estate professionals with mobile and web applications.</p>
+                            <div class="tech-stack">
+                                <span>Flutter</span>
+                                <span>Node.js</span>
+                                <span>PostgreSQL</span>
+                            </div>
+                            <a href="project-details.html" class="view-details-btn">View Details →</a>
+                        </div>
                     </div>
                 </div>
                 <div class="portfolio-item">
-                    <img src="https://via.placeholder.com/300x200" alt="Project 2">
-                    <div class="portfolio-info">
-                        <h3>Project 2</h3>
-                        <p>Description of the project goes here</p>
+                    <div class="portfolio-content">
+                        <div class="portfolio-image">
+                            <img src="https://via.placeholder.com/800x600.png?text=NCH+Project" alt="NCH Project">
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>NCH - Metal Purity Calculator</h3>
+                            <p>A desktop application for calculating metal purity and generating detailed purity reports. Built with Flutter and GraphQL.</p>
+                            <div class="tech-stack">
+                                <span>Flutter</span>
+                                <span>GraphQL</span>
+                                <span>Desktop</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-content">
+                        <div class="portfolio-image">
+                            <img src="https://via.placeholder.com/800x600.png?text=Pulpit+Partner" alt="Pulpit Partner">
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Pulpit Partner</h3>
+                            <p>India's first subscription-based cab aggregator platform with features for local travel, outstation travel, and rental services.</p>
+                            <div class="tech-stack">
+                                <span>Flutter</span>
+                                <span>Laravel</span>
+                                <span>iOS</span>
+                                <span>Android</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="portfolio-item">
+                    <div class="portfolio-content">
+                        <div class="portfolio-image">
+                            <img src="https://via.placeholder.com/800x600.png?text=Kyrafutures" alt="Kyrafutures">
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Kyrafutures</h3>
+                            <p>A comprehensive platform for managing KF plans, profiles, and wallet transfers with a modern, user-friendly interface.</p>
+                            <div class="tech-stack">
+                                <span>Flutter</span>
+                                <span>Node.js</span>
+                                <span>iOS</span>
+                                <span>Android</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -80,25 +246,31 @@
 
     <section id="contact" class="contact">
         <div class="container">
-            <h2>Get In Touch</h2>
+            <h2 class="section-title">Let's Connect</h2>
             <div class="contact-content">
                 <div class="contact-info">
                     <div class="contact-item">
                         <i class="fas fa-envelope"></i>
-                        <p>Email: your.email@example.com</p>
+                        <div class="contact-details">
+                            <h3>Email</h3>
+                            <p>shyaniviral@gmail.com</p>
+                        </div>
                     </div>
                     <div class="contact-item">
                         <i class="fas fa-map-marker-alt"></i>
-                        <p>Location: Your Location</p>
+                        <div class="contact-details">
+                            <h3>Location</h3>
+                            <p>Surat, Gujarat, India</p>
+                        </div>
                     </div>
-                </div>
-                <div class="social-links">
-                    <a href="https://www.upwork.com/freelancers/~016ede5e4f82b2634f" target="_blank">
-                        <i class="fas fa-briefcase"></i>
-                    </a>
-                    <a href="https://www.linkedin.com/in/chirag-shiyani-717063245" target="_blank">
-                        <i class="fab fa-linkedin"></i>
-                    </a>
+                    <div class="contact-social">
+                        <a href="https://www.linkedin.com/in/chirag-shiyani-717063245" target="_blank" class="social-link">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="https://github.com/yourusername" target="_blank" class="social-link">
+                            <i class="fab fa-github"></i>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -110,6 +282,71 @@
         </div>
     </footer>
 
+    <!-- Add a floating action button -->
+    <button class="fab" id="scrollToTop">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
     <script src="script.js"></script>
+    <script>
+        // Initialize particles.js
+        particlesJS('particles-js',
+        {
+            "particles": {
+                "number": {
+                    "value": 80,
+                    "density": {
+                        "enable": true,
+                        "value_area": 800
+                    }
+                },
+                "color": {
+                    "value": "#ffffff"
+                },
+                "shape": {
+                    "type": "circle"
+                },
+                "opacity": {
+                    "value": 0.5,
+                    "random": false
+                },
+                "size": {
+                    "value": 3,
+                    "random": true
+                },
+                "line_linked": {
+                    "enable": true,
+                    "distance": 150,
+                    "color": "#ffffff",
+                    "opacity": 0.4,
+                    "width": 1
+                },
+                "move": {
+                    "enable": true,
+                    "speed": 6,
+                    "direction": "none",
+                    "random": false,
+                    "straight": false,
+                    "out_mode": "out",
+                    "bounce": false
+                }
+            },
+            "interactivity": {
+                "detect_on": "canvas",
+                "events": {
+                    "onhover": {
+                        "enable": true,
+                        "mode": "repulse"
+                    },
+                    "onclick": {
+                        "enable": true,
+                        "mode": "push"
+                    },
+                    "resize": true
+                }
+            },
+            "retina_detect": true
+        });
+    </script>
 </body>
 </html> 

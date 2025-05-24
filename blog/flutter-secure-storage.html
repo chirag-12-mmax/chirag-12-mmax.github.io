@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Implementing Secure Storage in Flutter | Chirag Shiyani</title>
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="blog.css">
+    <link rel="stylesheet" href="post.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/themes/prism-tomorrow.min.css" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="../index.html" class="logo">CS</a>
+            <ul class="nav-links">
+                <li><a href="../index.html">Portfolio</a></li>
+                <li><a href="index.html">Blog</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="post-main">
+        <article class="post-content">
+            <header class="post-header">
+                <div class="post-meta">
+                    <span class="category">Security</span>
+                    <span class="date">March 15, 2024</span>
+                </div>
+                <h1>Implementing Secure Storage in Flutter</h1>
+                <p class="post-subtitle">A comprehensive guide to handling sensitive data securely in Flutter applications</p>
+            </header>
+
+            <div class="post-body">
+                <section class="introduction">
+                    <p>When developing mobile applications that handle sensitive user data, implementing proper security measures is crucial. In this guide, we'll explore how to implement secure storage in Flutter applications using best practices and industry-standard encryption methods.</p>
+                </section>
+
+                <section class="content-section">
+                    <h2>Understanding Secure Storage Options</h2>
+                    <p>Flutter provides several options for storing sensitive data securely:</p>
+                    <ul>
+                        <li><strong>flutter_secure_storage</strong>: Uses Keychain (iOS) and KeyStore (Android)</li>
+                        <li><strong>encrypted_shared_preferences</strong>: Encrypted version of SharedPreferences</li>
+                        <li><strong>Hive with encryption</strong>: NoSQL database with encryption support</li>
+                    </ul>
+                </section>
+
+                <section class="content-section">
+                    <h2>Implementing flutter_secure_storage</h2>
+                    <p>Let's start with the most common approach using flutter_secure_storage:</p>
+                    <pre><code class="language-dart">
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
+class SecureStorageService {
+  final _storage = FlutterSecureStorage();
+  
+  Future<void> saveSecureData(String key, String value) async {
+    try {
+      await _storage.write(
+        key: key,
+        value: value,
+        aOptions: AndroidOptions(
+          encryptedSharedPreferences: true,
+        ),
+      );
+    } catch (e) {
+      print('Error saving secure data: $e');
+      rethrow;
+    }
+  }
+
+  Future<String?> getSecureData(String key) async {
+    try {
+      return await _storage.read(
+        key: key,
+        aOptions: AndroidOptions(
+          encryptedSharedPreferences: true,
+        ),
+      );
+    } catch (e) {
+      print('Error reading secure data: $e');
+      return null;
+    }
+  }
+
+  Future<void> deleteSecureData(String key) async {
+    try {
+      await _storage.delete(
+        key: key,
+        aOptions: AndroidOptions(
+          encryptedSharedPreferences: true,
+        ),
+      );
+    } catch (e) {
+      print('Error deleting secure data: $e');
+      rethrow;
+    }
+  }
+}</code></pre>
+                    <p>This implementation provides a secure way to store sensitive data like:</p>
+                    <ul>
+                        <li>Authentication tokens</li>
+                        <li>User credentials</li>
+                        <li>API keys</li>
+                        <li>Encryption keys</li>
+                    </ul>
+                </section>
+
+                <section class="content-section">
+                    <h2>Adding Encryption Layer</h2>
+                    <p>For additional security, we can add an encryption layer using the encrypt package:</p>
+                    <pre><code class="language-dart">
+import 'package:encrypt/encrypt.dart';
+
+class EncryptionService {
+  static final key = Key.fromSecureRandom(32);
+  static final iv = IV.fromSecureRandom(16);
+  static final encrypter = Encrypter(AES(key));
+
+  static String encrypt(String text) {
+    final encrypted = encrypter.encrypt(text, iv: iv);
+    return encrypted.base64;
+  }
+
+  static String decrypt(String text) {
+    final encrypted = Encrypted.fromBase64(text);
+    return encrypter.decrypt(encrypted, iv: iv);
+  }
+}
+
+class SecureStorageWithEncryption {
+  final _storage = FlutterSecureStorage();
+
+  Future<void> saveEncryptedData(String key, String value) async {
+    final encryptedValue = EncryptionService.encrypt(value);
+    await _storage.write(
+      key: key,
+      value: encryptedValue,
+      aOptions: AndroidOptions(
+        encryptedSharedPreferences: true,
+      ),
+    );
+  }
+
+  Future<String?> getDecryptedData(String key) async {
+    final encryptedValue = await _storage.read(
+      key: key,
+      aOptions: AndroidOptions(
+        encryptedSharedPreferences: true,
+      ),
+    );
+    if (encryptedValue == null) return null;
+    return EncryptionService.decrypt(encryptedValue);
+  }
+}</code></pre>
+                </section>
+
+                <section class="content-section">
+                    <h2>Best Practices</h2>
+                    <div class="best-practices">
+                        <h3>1. Key Management</h3>
+                        <p>Always use strong, unique keys for different types of data:</p>
+                        <pre><code class="language-dart">
+class StorageKeys {
+  static const String authToken = 'auth_token_key';
+  static const String userProfile = 'user_profile_key';
+  static const String settings = 'app_settings_key';
+}</code></pre>
+
+                        <h3>2. Error Handling</h3>
+                        <p>Implement proper error handling and logging:</p>
+                        <pre><code class="language-dart">
+Future<void> secureOperation() async {
+  try {
+    await saveSecureData('key', 'value');
+  } on PlatformException catch (e) {
+    // Handle platform-specific errors
+    logger.error('Platform error: ${e.message}');
+  } catch (e) {
+    // Handle other errors
+    logger.error('Unexpected error: $e');
+  }
+}</code></pre>
+
+                        <h3>3. Data Validation</h3>
+                        <p>Always validate data before storing:</p>
+                        <pre><code class="language-dart">
+Future<void> saveUserData(UserData userData) async {
+  if (!userData.isValid()) {
+    throw ValidationException('Invalid user data');
+  }
+  final jsonData = jsonEncode(userData.toJson());
+  await saveEncryptedData('user_data', jsonData);
+}</code></pre>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Security Considerations</h2>
+                    <div class="security-tips">
+                        <ul>
+                            <li>Never store encryption keys in the code</li>
+                            <li>Use biometric authentication when accessing sensitive data</li>
+                            <li>Implement proper session management</li>
+                            <li>Regular security audits of stored data</li>
+                            <li>Clear sensitive data on logout</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section class="content-section">
+                    <h2>Testing Secure Storage</h2>
+                    <pre><code class="language-dart">
+void main() {
+  group('SecureStorage Tests', () {
+    late SecureStorageService storage;
+
+    setUp(() {
+      storage = SecureStorageService();
+    });
+
+    test('Save and retrieve secure data', () async {
+      const testKey = 'test_key';
+      const testValue = 'test_value';
+
+      await storage.saveSecureData(testKey, testValue);
+      final retrievedValue = await storage.getSecureData(testKey);
+
+      expect(retrievedValue, equals(testValue));
+    });
+
+    test('Delete secure data', () async {
+      const testKey = 'test_key';
+      const testValue = 'test_value';
+
+      await storage.saveSecureData(testKey, testValue);
+      await storage.deleteSecureData(testKey);
+      final retrievedValue = await storage.getSecureData(testKey);
+
+      expect(retrievedValue, isNull);
+    });
+  });
+}</code></pre>
+                </section>
+            </div>
+
+            <footer class="post-footer">
+                <div class="tags">
+                    <span class="tag">Flutter</span>
+                    <span class="tag">Security</span>
+                    <span class="tag">Mobile Development</span>
+                </div>
+                <div class="share-buttons">
+                    <button class="share-button">
+                        <i class="fab fa-twitter"></i>
+                        Share on Twitter
+                    </button>
+                    <button class="share-button">
+                        <i class="fab fa-linkedin"></i>
+                        Share on LinkedIn
+                    </button>
+                </div>
+            </footer>
+        </article>
+
+        <aside class="post-sidebar">
+            <div class="author-info">
+                <img src="../images/profile.jpg" alt="Chirag Shiyani" class="author-image">
+                <h3>Chirag Shiyani</h3>
+                <p>Flutter Developer & Technical Writer</p>
+            </div>
+            <div class="table-of-contents">
+                <h3>Contents</h3>
+                <ul>
+                    <li><a href="#understanding-secure-storage">Understanding Secure Storage Options</a></li>
+                    <li><a href="#implementing-flutter-secure-storage">Implementing flutter_secure_storage</a></li>
+                    <li><a href="#adding-encryption-layer">Adding Encryption Layer</a></li>
+                    <li><a href="#best-practices">Best Practices</a></li>
+                    <li><a href="#security-considerations">Security Considerations</a></li>
+                    <li><a href="#testing-secure-storage">Testing Secure Storage</a></li>
+                </ul>
+            </div>
+            <div class="related-posts">
+                <h3>Related Posts</h3>
+                <ul>
+                    <li>
+                        <a href="realtime-flutter.html">Real-time Data Handling in Flutter</a>
+                    </li>
+                    <li>
+                        <a href="flutter-testing.html">Comprehensive Testing in Flutter</a>
+                    </li>
+                </ul>
+            </div>
+        </aside>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Chirag Shiyani. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/components/prism-dart.min.js"></script>
+    <script src="post.js"></script>
+</body>
+</html> 

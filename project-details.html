@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real Estate CRM - Project Details | Chirag Shiyani</title>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect">
+    <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Vendor CSS Files -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Template CSS Files -->
+    <link rel="stylesheet" href="theme.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="project-details.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="index.html" class="logo">CS</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Back to Portfolio</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="project-details">
+        <div class="container">
+            <header class="project-header">
+                <h1>Real Estate Industry CRM</h1>
+                <p class="project-subtitle">Web & Mobile App Development</p>
+                <div class="project-tags">
+                    <span>Flutter</span>
+                    <span>Node.js</span>
+                    <span>PostgreSQL</span>
+                    <span>Firebase</span>
+                    <span>REST API</span>
+                </div>
+            </header>
+
+            <section class="project-overview">
+                <h2>Project Overview</h2>
+                <p>A comprehensive Customer Relationship Management (CRM) solution specifically tailored for the real estate industry. The platform streamlines all aspects of real estate business operations, including property management, lead tracking, sales process automation, client communication, and analytics.</p>
+                
+                <div class="platform-availability">
+                    <div class="platform">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span>Mobile App (iOS & Android)</span>
+                    </div>
+                    <div class="platform">
+                        <i class="fas fa-desktop"></i>
+                        <span>Web Application</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="key-features">
+                <h2>Key Features</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-building"></i>
+                        <h3>Property Management</h3>
+                        <ul>
+                            <li>Add, edit, and manage property listings</li>
+                            <li>Advanced filters and search</li>
+                            <li>Third-party portal integration</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-users"></i>
+                        <h3>Lead & Client Management</h3>
+                        <ul>
+                            <li>Lead capture and tracking</li>
+                            <li>Team assignment system</li>
+                            <li>Activity history tracking</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Sales Pipeline</h3>
+                        <ul>
+                            <li>Visual sales pipeline</li>
+                            <li>Automated notifications</li>
+                            <li>Commission tracking</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-chart-bar"></i>
+                        <h3>Analytics & Reporting</h3>
+                        <ul>
+                            <li>Performance dashboard</li>
+                            <li>Conversion metrics</li>
+                            <li>Custom report generation</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="tech-stack">
+                <h2>Technical Implementation</h2>
+                <div class="tech-details">
+                    <div class="tech-category">
+                        <h3>Frontend Development</h3>
+                        <pre><code class="language-dart">
+// Example of Property Listing Widget
+class PropertyListingCard extends StatelessWidget {
+  final Property property;
+  
+  const PropertyListingCard({Key? key, required this.property}) : super(key: key);
+  
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 4,
+      child: Column(
+        children: [
+          CachedNetworkImage(
+            imageUrl: property.imageUrl,
+            placeholder: (context, url) => ShimmerLoading(),
+          ),
+          ListTile(
+            title: Text(property.title),
+            subtitle: Text(property.location),
+            trailing: Text('\$${property.price}'),
+          ),
+          PropertyActions(property: property),
+        ],
+      ),
+    );
+  }
+}</code></pre>
+                    </div>
+                    
+                    <div class="tech-category">
+                        <h3>State Management</h3>
+                        <pre><code class="language-dart">
+// Property State Management using Riverpod
+final propertyProvider = StateNotifierProvider<PropertyNotifier, List<Property>>((ref) {
+  return PropertyNotifier();
+});
+
+class PropertyNotifier extends StateNotifier<List<Property>> {
+  PropertyNotifier() : super([]);
+  
+  Future<void> fetchProperties() async {
+    final properties = await PropertyService.getProperties();
+    state = properties;
+  }
+  
+  void addProperty(Property property) {
+    state = [...state, property];
+  }
+}</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section class="project-architecture">
+                <h2>System Architecture</h2>
+                <img src="architecture-diagram.png" alt="System Architecture Diagram" class="architecture-image">
+                <div class="architecture-description">
+                    <h3>Key Components:</h3>
+                    <ul>
+                        <li>Flutter for cross-platform frontend development</li>
+                        <li>Node.js backend with Express.js</li>
+                        <li>PostgreSQL for relational data</li>
+                        <li>Firebase for real-time features</li>
+                        <li>REST APIs for communication</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="project-results">
+                <h2>Project Outcomes</h2>
+                <div class="results-grid">
+                    <div class="result-card">
+                        <h3>Performance</h3>
+                        <p>Achieved 99.9% uptime and sub-2-second load times</p>
+                    </div>
+                    <div class="result-card">
+                        <h3>User Engagement</h3>
+                        <p>30% increase in user engagement after launch</p>
+                    </div>
+                    <div class="result-card">
+                        <h3>Business Impact</h3>
+                        <p>40% reduction in lead response time</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Chirag Shiyani. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="project-details.js"></script>
+</body>
+</html> 

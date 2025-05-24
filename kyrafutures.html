@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kyrafutures - Project Details | Chirag Shiyani</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="project-details.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="index.html" class="logo">CS</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Back to Portfolio</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="project-details">
+        <div class="container">
+            <header class="project-header">
+                <h1>Kyrafutures</h1>
+                <p class="project-subtitle">Comprehensive Platform for KF Plans & Wallet Management</p>
+                <div class="project-tags">
+                    <span>Flutter</span>
+                    <span>Node.js</span>
+                    <span>iOS</span>
+                    <span>Android</span>
+                    <span>Blockchain</span>
+                </div>
+            </header>
+
+            <section class="project-overview">
+                <h2>Project Overview</h2>
+                <p>Kyrafutures is a sophisticated platform that revolutionizes the management of KF plans, user profiles, and wallet transfers. The application provides a seamless experience for users to manage their investments, track performance, and execute transactions with robust security measures.</p>
+                
+                <div class="platform-availability">
+                    <div class="platform">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span>Mobile Apps</span>
+                    </div>
+                    <div class="platform">
+                        <i class="fas fa-desktop"></i>
+                        <span>Web Dashboard</span>
+                    </div>
+                    <div class="platform">
+                        <i class="fas fa-wallet"></i>
+                        <span>Wallet Integration</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="key-features">
+                <h2>Key Features</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-chart-line"></i>
+                        <h3>Investment Management</h3>
+                        <ul>
+                            <li>Real-time portfolio tracking</li>
+                            <li>Performance analytics</li>
+                            <li>Investment recommendations</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-wallet"></i>
+                        <h3>Wallet Operations</h3>
+                        <ul>
+                            <li>Secure transactions</li>
+                            <li>Multi-currency support</li>
+                            <li>Transaction history</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-user-shield"></i>
+                        <h3>Security Features</h3>
+                        <ul>
+                            <li>Biometric authentication</li>
+                            <li>2FA implementation</li>
+                            <li>Encrypted data storage</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-bell"></i>
+                        <h3>Notifications</h3>
+                        <ul>
+                            <li>Price alerts</li>
+                            <li>Transaction updates</li>
+                            <li>Portfolio notifications</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="tech-stack">
+                <h2>Technical Implementation</h2>
+                <div class="tech-details">
+                    <div class="tech-category">
+                        <h3>Secure Wallet Implementation</h3>
+                        <pre><code class="language-dart">
+class SecureWallet {
+  final _encryptionService = EncryptionService();
+  final _biometricAuth = BiometricAuth();
+  final _storage = SecureStorage();
+
+  Future<WalletCredentials> createWallet() async {
+    try {
+      // Verify user identity
+      final isAuthenticated = await _biometricAuth.authenticate(
+        localizedReason: 'Authenticate to create wallet',
+      );
+
+      if (!isAuthenticated) {
+        throw SecurityException('Biometric authentication failed');
+      }
+
+      // Generate wallet credentials
+      final credentials = await WalletGenerator.generate();
+      
+      // Encrypt sensitive data
+      final encryptedSeed = await _encryptionService.encrypt(
+        credentials.seed,
+        type: EncryptionType.AES256,
+      );
+
+      // Store securely
+      await _storage.secureStore(
+        key: 'wallet_${credentials.address}',
+        value: encryptedSeed,
+      );
+
+      return credentials;
+    } catch (e) {
+      handleWalletError(e);
+      rethrow;
+    }
+  }
+}</code></pre>
+                    </div>
+                    
+                    <div class="tech-category">
+                        <h3>Real-time Portfolio Tracking</h3>
+                        <pre><code class="language-dart">
+class PortfolioTracker extends ChangeNotifier {
+  final _marketDataService = MarketDataService();
+  final _portfolioCache = PortfolioCache();
+  Timer? _updateTimer;
+
+  Map<String, AssetData> _assets = {};
+  double _totalValue = 0;
+
+  void startTracking() {
+    _updateTimer = Timer.periodic(Duration(seconds: 30), (_) {
+      _updatePortfolio();
+    });
+
+    // Listen to real-time price updates
+    _marketDataService.priceStream.listen((priceUpdate) {
+      _updateAssetPrice(priceUpdate);
+      _recalculatePortfolio();
+      notifyListeners();
+    });
+  }
+
+  Future<void> _updatePortfolio() async {
+    try {
+      final latestData = await _marketDataService.getPortfolioData();
+      _assets = latestData.assets;
+      _recalculatePortfolio();
+      
+      // Cache for offline access
+      await _portfolioCache.saveData(_assets);
+      
+      notifyListeners();
+    } catch (e) {
+      print('Portfolio update failed: $e');
+    }
+  }
+}</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section class="project-architecture">
+                <h2>System Architecture</h2>
+                <img src="kyrafutures-architecture.png" alt="Kyrafutures System Architecture" class="architecture-image">
+                <div class="architecture-description">
+                    <h3>Key Components:</h3>
+                    <ul>
+                        <li>Flutter for cross-platform development</li>
+                        <li>Node.js backend with Express</li>
+                        <li>MongoDB for data persistence</li>
+                        <li>WebSocket for real-time updates</li>
+                        <li>AWS for cloud infrastructure</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="project-results">
+                <h2>Project Impact</h2>
+                <div class="results-grid">
+                    <div class="result-card">
+                        <h3>Transaction Volume</h3>
+                        <p>$50M+ processed in first month</p>
+                    </div>
+                    <div class="result-card">
+                        <h3>Active Users</h3>
+                        <p>25,000+ daily active users</p>
+                    </div>
+                    <div class="result-card">
+                        <h3>Performance</h3>
+                        <p>99.99% uptime maintained</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="challenges-solutions">
+                <h2>Challenges & Solutions</h2>
+                <div class="challenge-grid">
+                    <div class="challenge-card">
+                        <h3>Data Security</h3>
+                        <p class="challenge">Challenge: Ensuring secure storage and transmission of sensitive financial data.</p>
+                        <p class="solution">Solution: Implemented end-to-end encryption and secure enclaves for sensitive data storage.</p>
+                    </div>
+                    <div class="challenge-card">
+                        <h3>Real-time Updates</h3>
+                        <p class="challenge">Challenge: Maintaining real-time synchronization across devices with minimal latency.</p>
+                        <p class="solution">Solution: Utilized WebSocket connections with optimized data structures and caching.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="related-content">
+                <h2>Related Resources</h2>
+                <div class="resource-grid">
+                    <a href="blog/flutter-secure-storage.html" class="resource-card">
+                        <i class="fas fa-lock"></i>
+                        <h3>Implementing Secure Storage in Flutter</h3>
+                        <p>Learn about best practices for secure data storage in Flutter applications.</p>
+                    </a>
+                    <a href="blog/realtime-flutter.html" class="resource-card">
+                        <i class="fas fa-bolt"></i>
+                        <h3>Real-time Data Handling in Flutter</h3>
+                        <p>Deep dive into implementing real-time features with WebSocket.</p>
+                    </a>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Chirag Shiyani. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="project-details.js"></script>
+</body>
+</html> 

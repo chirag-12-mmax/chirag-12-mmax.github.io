@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pulpit Partner - Project Details | Chirag Shiyani</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="project-details.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <a href="index.html" class="logo">CS</a>
+            <ul class="nav-links">
+                <li><a href="index.html">Back to Portfolio</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="project-details">
+        <div class="container">
+            <header class="project-header">
+                <h1>Pulpit Partner</h1>
+                <p class="project-subtitle">India's First Subscription-Based Cab Aggregator Platform</p>
+                <div class="project-tags">
+                    <span>Flutter</span>
+                    <span>Laravel</span>
+                    <span>iOS</span>
+                    <span>Android</span>
+                    <span>Google Maps</span>
+                </div>
+            </header>
+
+            <section class="project-overview">
+                <h2>Project Overview</h2>
+                <p>Pulpit Partner revolutionizes the cab service industry by introducing India's first subscription-based model. The platform offers comprehensive travel solutions including local travel, outstation journeys, and rental services, all unified under a single subscription plan.</p>
+                
+                <div class="platform-availability">
+                    <div class="platform">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span>Mobile App (iOS & Android)</span>
+                    </div>
+                    <div class="platform">
+                        <i class="fas fa-taxi"></i>
+                        <span>Driver App</span>
+                    </div>
+                    <div class="platform">
+                        <i class="fas fa-desktop"></i>
+                        <span>Admin Dashboard</span>
+                    </div>
+                </div>
+            </section>
+
+            <section class="key-features">
+                <h2>Key Features</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <i class="fas fa-route"></i>
+                        <h3>Smart Routing</h3>
+                        <ul>
+                            <li>Real-time route optimization</li>
+                            <li>Traffic-aware navigation</li>
+                            <li>Multiple stop support</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-credit-card"></i>
+                        <h3>Subscription Management</h3>
+                        <ul>
+                            <li>Flexible subscription plans</li>
+                            <li>Usage tracking</li>
+                            <li>Automated billing</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <h3>Location Services</h3>
+                        <ul>
+                            <li>Live tracking</li>
+                            <li>Geofencing</li>
+                            <li>Place autocomplete</li>
+                        </ul>
+                    </div>
+                    <div class="feature-card">
+                        <i class="fas fa-shield-alt"></i>
+                        <h3>Safety Features</h3>
+                        <ul>
+                            <li>Emergency SOS</li>
+                            <li>Driver verification</li>
+                            <li>Trip sharing</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="tech-stack">
+                <h2>Technical Implementation</h2>
+                <div class="tech-details">
+                    <div class="tech-category">
+                        <h3>Location Tracking Service</h3>
+                        <pre><code class="language-dart">
+class LocationService extends ChangeNotifier {
+  final _locationStream = LocationStream();
+  final _geocoder = Geocoder();
+  Position? _currentLocation;
+  String? _currentAddress;
+
+  Future<void> startLocationUpdates() async {
+    try {
+      await _locationStream.requestPermission();
+      _locationStream.onLocationChanged.listen((Position position) {
+        _currentLocation = position;
+        _updateAddress();
+        notifyListeners();
+      });
+    } catch (e) {
+      print('Error starting location updates: $e');
+    }
+  }
+
+  Future<void> _updateAddress() async {
+    if (_currentLocation != null) {
+      final addresses = await _geocoder.placemarkFromCoordinates(
+        _currentLocation!.latitude,
+        _currentLocation!.longitude,
+      );
+      if (addresses.isNotEmpty) {
+        _currentAddress = addresses.first.formattedAddress;
+        notifyListeners();
+      }
+    }
+  }
+}</code></pre>
+                    </div>
+                    
+                    <div class="tech-category">
+                        <h3>Subscription Management</h3>
+                        <pre><code class="language-dart">
+class SubscriptionManager {
+  final _paymentService = PaymentService();
+  final _usageTracker = UsageTracker();
+
+  Future<void> processSubscription(String userId, String planId) async {
+    try {
+      // Verify current usage
+      final usage = await _usageTracker.getCurrentUsage(userId);
+      if (usage.isOverLimit) {
+        throw SubscriptionException('Usage limit exceeded');
+      }
+
+      // Process payment
+      final payment = await _paymentService.processPayment(
+        userId: userId,
+        planId: planId,
+        amount: calculateAmount(usage),
+      );
+
+      // Update subscription
+      await updateSubscriptionStatus(
+        userId: userId,
+        paymentId: payment.id,
+        status: SubscriptionStatus.active,
+      );
+    } catch (e) {
+      handleSubscriptionError(e);
+    }
+  }
+}</code></pre>
+                    </div>
+                </div>
+            </section>
+
+            <section class="project-architecture">
+                <h2>System Architecture</h2>
+                <img src="pulpit-architecture.png" alt="Pulpit Partner System Architecture" class="architecture-image">
+                <div class="architecture-description">
+                    <h3>Key Components:</h3>
+                    <ul>
+                        <li>Flutter for cross-platform mobile apps</li>
+                        <li>Laravel backend for robust API services</li>
+                        <li>Google Maps Platform for location services</li>
+                        <li>Firebase for real-time tracking</li>
+                        <li>Stripe integration for payments</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="project-results">
+                <h2>Project Impact</h2>
+                <div class="results-grid">
+                    <div class="result-card">
+                        <h3>User Base</h3>
+                        <p>10,000+ active subscribers in first quarter</p>
+                    </div>
+                    <div class="result-card">
+                        <h3>Driver Network</h3>
+                        <p>500+ verified drivers onboarded</p>
+                    </div>
+                    <div class="result-card">
+                        <h3>Customer Satisfaction</h3>
+                        <p>4.8/5 average rating from users</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="challenges-solutions">
+                <h2>Challenges & Solutions</h2>
+                <div class="challenge-grid">
+                    <div class="challenge-card">
+                        <h3>Real-time Tracking</h3>
+                        <p class="challenge">Challenge: Maintaining accurate location updates while minimizing battery consumption.</p>
+                        <p class="solution">Solution: Implemented adaptive location update intervals based on trip status and movement detection.</p>
+                    </div>
+                    <div class="challenge-card">
+                        <h3>Subscription Logic</h3>
+                        <p class="challenge">Challenge: Complex subscription rules with multiple service types.</p>
+                        <p class="solution">Solution: Developed a flexible subscription engine that handles various use cases and plan combinations.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Chirag Shiyani. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.24.1/prism.min.js"></script>
+    <script src="project-details.js"></script>
+</body>
+</html> 
